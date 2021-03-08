@@ -1,5 +1,3 @@
-# TODO: YouTube Video downlod
-
 from pytube import YouTube
 import sys
 
