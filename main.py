@@ -4,13 +4,13 @@ import sys
 
 while True:
     video = input("Enter URL to download YouTube Videod and EXIT to quit:  ")
+    print("Fetching . . .\n")
 
     if(video == 'exit' or video == 'EXIT'):
         sys.exit("Bye!")
     else:
         yt = YouTube(video)
 
-        print("Fetching...\n")
 
         print( yt.title)
         print("Author : ", yt.author)
@@ -21,20 +21,31 @@ while True:
         print("Views : ", yt.views)
         print("Date : ", yt.publish_date)
 
-        print("Printing available resolutions \nNOTE : (some of the resolution might not work so if it gives any try again with different res) ->")
 
-        l = list(yt.streams)
-        for i in (l):
-            #print(str(i), end= "\n")
-            res = str(i).find('res')
-            for j in range(10) :
-                st = str(i)
-                print(st[res], end="")
-                res = res + 1
-            print("\n")
 
-        qual = input("Enter video resolution : ")
+        # l = list(yt.streams)
+        # for i in (l):
+        #     #print(str(i), end= "\n")
+        #     res = str(i).find('res')
+        #     for j in range(10):
+        #         st = str(i)
+        #         print(st[res], end="")
+        #         res = res + 1
+        #     print("\n")
 
-        yt.streams.get_by_resolution(qual).download()
+        while True:
+            qual = int(input("Enter 1 for high resolution and 0 for low resolution : "))
+
+            # yt.streams.get_by_resolution(qual).download()
+            if(qual == 1):
+                print("Downloading in highest res . . .")
+                yt.streams.get_highest_resolution().download()
+                break;
+            elif(qual == 0):
+                print("Downloading in lowest res . . .")
+                yt.streams.get_lowest_resolution().download()
+                break
+            else:
+                print("Please enter valid input")
 
         print("Done! video is inside the current dir ")
